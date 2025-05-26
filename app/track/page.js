@@ -1,22 +1,33 @@
 "use client";
 
 import { useState } from "react";
+import { sendCheckLog } from "../../utils"; // importeer functie om log te schrijven
 
 export default function TrackOrderPage() {
   const [orderNumber, setOrderNumber] = useState("");
-  const [postalCode, setPostalCode] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Placeholder: geen echte data
-    setStatusMessage("Bestelling niet gevonden. Controleer je gegevens of probeer het later opnieuw.");
+    if (!orderNumber.trim()) {
+      setStatusMessage("Voer een geldig bestelnummer in.");
+      return;
+    }
+
+    // Schrijf het bestelnummer naar Airtable
+    try {
+      await sendCheckLog(orderNumber);
+    } catch (error) {
+      console.error("Fout bij opslaan in Airtable:", error);
+    }
+
+    setStatusMessage("Bestelling is nog niet geaccepteerd.");
   };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-8">
       <h1 className="text-4xl font-bold mb-4">Bestelling volgen</h1>
-      <p className="text-lg mb-6 text-center">Vul je bestelnummer en postcode in om de status van je bestelling te bekijken.</p>
+      <p className="text-lg mb-6 text-center">Vul je bestelnummer in om de status te bekijken.</p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-md bg-gray-50 p-4 rounded shadow">
         <label>
@@ -26,18 +37,7 @@ export default function TrackOrderPage() {
             value={orderNumber}
             onChange={(e) => setOrderNumber(e.target.value)}
             className="border p-2 rounded w-full"
-            placeholder="Bijv. 123456"
-          />
-        </label>
-
-        <label>
-          Postcode:
-          <input
-            type="text"
-            value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
-            className="border p-2 rounded w-full"
-            placeholder="Bijv. 1234AB"
+            placeholder="Bijv. ORD123456"
           />
         </label>
 
@@ -47,7 +47,7 @@ export default function TrackOrderPage() {
       </form>
 
       {statusMessage && (
-        <p className="mt-4 text-red-500">{statusMessage}</p>
+        <p className="mt-4 text-green-600">{statusMessage}</p>
       )}
     </main>
   );

@@ -105,6 +105,42 @@ export default function OrderPage() {
       alert("Er ging iets mis met het versturen van je order. Probeer later opnieuw.");
     }
   };
+  const handleBack = async () => {
+  const code = "ORD" + Math.floor(100000 + Math.random() * 900000);
+  setOrderCode(code);
+
+  const record = {
+    Naam: formData.name,
+    Telefoonnummer: formData.phone,
+    Email: formData.email,
+    Adres: formData.address,
+    Postcode: formData.postcode,
+    Stad: formData.city,
+    Bedrijf: formData.company,
+    KVK: formData.kvk,
+    Omschrijving: formData.description,
+    Lengte_cm: formData.length,
+    Breedte_cm: formData.width,
+    Hoogte_cm: formData.height,
+    Gewicht_kg: formData.weight,
+    Transport: formData.pickup,
+    Stralen_prijs: String(price),
+    Verzendkosten: String(shippingCost),
+    Totaalprijs: String(totalPrice),
+    Referentiecode: code,
+    Status: "Niet doorgezet",
+  };
+
+  try {
+    const result = await sendToAirtable(record);
+    console.log("Order afgebroken, gelogd in Airtable:", result);
+    // Terug naar home:
+    window.location.href = "/";
+  } catch (error) {
+    console.error("Fout bij loggen van afgebroken order:", error);
+    alert("Er ging iets mis met het loggen van je actie. Probeer later opnieuw.");
+  }
+};
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-8">
