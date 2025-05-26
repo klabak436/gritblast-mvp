@@ -6,6 +6,7 @@ import { sendToAirtable } from "../../utils";
 export default function OrderPage() {
   const [formData, setFormData] = useState({
     name: "",
+    phone: "",
     email: "",
     address: "",
     postcode: "",
@@ -24,13 +25,14 @@ export default function OrderPage() {
   const [totalPrice, setTotalPrice] = useState(null);
   const [step, setStep] = useState("form");
   const [orderCode, setOrderCode] = useState("");
+  const [quoteGenerated, setQuoteGenerated] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const l = parseFloat(formData.length) || 0;
@@ -57,55 +59,64 @@ export default function OrderPage() {
     setPrice(workPrice);
     setShippingCost(shipping);
     setTotalPrice(total);
-    setStep("quote");
+    setQuoteGenerated(true);
+
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }, 100);
   };
 
-const handleConfirm = async () => {
-  const code = "ORD" + Math.floor(100000 + Math.random() * 900000);
-  setOrderCode(code);
+  const handleConfirm = async (status) => {
+    const code = "ORD" + Math.floor(100000 + Math.random() * 900000);
+    setOrderCode(code);
 
-  const record = {
-    Naam: formData.name,
-    Email: formData.email,
-    Adres: formData.address,
-    Postcode: formData.postcode,
-    Stad: formData.city,
-    Bedrijf: formData.company,
-    KVK: formData.kvk,
-    Omschrijving: formData.description,
-    Lengte_cm: formData.length,
-    Breedte_cm: formData.width,
-    Hoogte_cm: formData.height,
-    Gewicht_kg: formData.weight,
-    Transport: formData.pickup,
-    Stralen_prijs: String(price),
-    Verzendkosten: String(shippingCost),
-    Totaalprijs: String(totalPrice),
-    Referentiecode: code,
-    Status: "Nog niet geaccepteerd, nog niet betaald",
-  };
+    const record = {
+      Naam: formData.name,
+      Telefoonnummer: formData.phone,
+      Email: formData.email,
+      Adres: formData.address,
+      Postcode: formData.postcode,
+      Stad: formData.city,
+      Bedrijf: formData.company,
+      KVK: formData.kvk,
+      Omschrijving: formData.description,
+      Lengte_cm: formData.length,
+      Breedte_cm: formData.width,
+      Hoogte_cm: formData.height,
+      Gewicht_kg: formData.weight,
+      Transport: formData.pickup,
+      Stralen_prijs: String(price),
+      Verzendkosten: String(shippingCost),
+      Totaalprijs: String(totalPrice),
+      Referentiecode: code,
+      Status: status,
+    };
 
-  try {
-    const result = await sendToAirtable(record);
-    console.log("Airtable response:", result);
-    setStep("confirmation");
-  } catch (error) {
-    console.error("Fout bij verzenden naar Airtable:", error);
-    alert("Er ging iets mis met het versturen van je order. Probeer later opnieuw.");
-  }
-};
-
-  const handleBack = () => {
-    setStep("form");
+    try {
+      const result = await sendToAirtable(record);
+      console.log("Airtable response:", result);
+      if (status === "Nog niet geaccepteerd, nog niet betaald") {
+        setStep("confirmation");
+      } else {
+        window.location.href = "/";
+      }
+    } catch (error) {
+      console.error("Fout bij verzenden naar Airtable:", error);
+      alert("Er ging iets mis met het versturen van je order. Probeer later opnieuw.");
+    }
   };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-8">
+      {step !== "confirmation" && (
+        <h1 className="text-4xl font-bold mb-4">Bestelling plaatsen</h1>
+      )}
+
       {step === "form" && (
         <>
-          <h1 className="text-4xl font-bold mb-4">Bestelling plaatsen</h1>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-md bg-gray-50 p-4 rounded shadow">
             <label>Naam:<input name="name" onChange={handleChange} className="border p-2 rounded w-full" required /></label>
+            <label>Telefoon:<input name="phone" onChange={handleChange} className="border p-2 rounded w-full" required /></label>
             <label>E-mail:<input name="email" onChange={handleChange} className="border p-2 rounded w-full" required /></label>
             <label>Adres:<input name="address" onChange={handleChange} className="border p-2 rounded w-full" required /></label>
             <label>Postcode:<input name="postcode" onChange={handleChange} className="border p-2 rounded w-full" required /></label>
@@ -130,23 +141,32 @@ const handleConfirm = async () => {
         </>
       )}
 
-      {step === "quote" && (
-        <div className="text-center">
+      {quoteGenerated && step === "form" && (
+        <div className="text-center mt-8">
           <h2 className="text-2xl font-bold mb-4">Prijsindicatie</h2>
           <p>Stralen: <strong>€{price}</strong></p>
           <p>Verzendkosten: <strong>€{shippingCost}</strong></p>
           <p>Totaalprijs: <strong>€{totalPrice}</strong></p>
           <div className="mt-4 space-x-4">
-            <button onClick={handleBack} className="bg-gray-300 p-2 rounded hover:bg-gray-400">Terug</button>
-            <button onClick={handleConfirm} className="bg-green-500 text-white p-2 rounded hover:bg-green-600">Doorgaan met order</button>
+            <button
+              onClick={() => handleConfirm("Niet doorgezet")}
+              className="bg-gray-300 p-2 rounded hover:bg-gray-400"
+            >
+              Terug naar home
+            </button>
+            <button
+              onClick={() => handleConfirm("Nog niet geaccepteerd, nog niet betaald")}
+              className="bg-green-500 text-white p-2 rounded hover:bg-green-600"
+            >
+              Plaats bestelling
+            </button>
           </div>
         </div>
       )}
 
       {step === "confirmation" && (
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Orderbevestiging</h2>
-          <p>Je referentiecode: <strong>{orderCode}</strong></p>
+          <p className="text-2xl font-bold mb-4">Je referentiecode: <strong>{orderCode}</strong></p>
           <p className="mt-4">We sturen je een e-mail ter bevestiging van je aanvraag.</p>
           <p>Als je order wordt geaccepteerd, ontvang je een betaalverzoek en verzendinstructies.</p>
           <p className="mt-4 text-yellow-600">Status: Nog niet geaccepteerd, nog niet betaald.</p>
