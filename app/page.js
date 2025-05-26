@@ -37,7 +37,7 @@ export default function HomePage() {
           <h2 className="text-2xl font-bold mb-2">Hoe werkt het?</h2>
           <ol className="list-decimal list-inside space-y-2">
             <li>
-              <strong>Klik op "Bestelling plaatsen"</strong> en upload een foto van je werkstuk. Geef de kenmerken, afmetingen, gewicht en een korte omschrijving op. Je ontvangt direct een indicatie van de prijs voor het stralen én de verzendkosten.
+              <strong>Klik op &quot;Bestelling plaatsen&quot;</strong> en upload een foto van je werkstuk. Geef de kenmerken, afmetingen, gewicht en een korte omschrijving op. Je ontvangt direct een indicatie van de prijs voor het stralen én de verzendkosten.
             </li>
             <li>
               <strong>Plaats je bestelling</strong> - wij bekijken je aanvraag. Als je order wordt geaccepteerd, ontvang je een betaal link en een verzendlabel.

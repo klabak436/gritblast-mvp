@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function FAQPage() {
   return (
     <main className="flex flex-col items-center justify-start min-h-screen p-8">
@@ -47,7 +49,7 @@ export default function FAQPage() {
         </div>
       </div>
 
-      <a href="/" className="mt-8 inline-block text-blue-500 underline">Terug naar home</a>
+      <Link href="/" className="mt-8 inline-block text-blue-500 underline">Terug naar home</Link>
     </main>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from 'next/link';
 import { useState } from "react";
 import { sendToAirtable } from "../../utils";
 
@@ -206,7 +207,7 @@ export default function OrderPage() {
           <p className="mt-4">We sturen je een e-mail ter bevestiging van je aanvraag.</p>
           <p>Als je order wordt geaccepteerd, ontvang je een betaalverzoek en verzendinstructies.</p>
           <p className="mt-4 text-yellow-600">Status: Nog niet geaccepteerd, nog niet betaald.</p>
-          <a href="/" className="mt-4 inline-block text-blue-500 underline">Terug naar home</a>
+          <Link href="/" className="mt-4 inline-block text-blue-500 underline">Terug naar home</Link>
         </div>
       )}
     </main>
