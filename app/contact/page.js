@@ -18,7 +18,7 @@ export default function ContactPage() {
 
         <ul className="list-disc list-inside space-y-2">
           <li>📱 WhatsApp: <strong>06 - 12345678 (TBD)</strong></li>
-          <li>📧 E-mail: <a href="mailto:info@send-straal-klaar.nl" className="text-blue-500 underline">info@send-straal-klaar.nl</a></li>
+          <li>📧 E-mail: <a href="mailto:info@snel-zandstralen.nl" className="text-blue-500 underline">info@send-straal-klaar.nl</a></li>
         </ul>
 
         <p>

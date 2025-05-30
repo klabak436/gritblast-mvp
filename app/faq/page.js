@@ -21,9 +21,9 @@ export default function FAQPage() {
         </div>
 
         <div className="bg-gray-50 p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-2">Hoe lang duurt het voordat ik mijn werkstuk terugkrijg?</h2>
+          <h2 className="text-xl font-semibold mb-2">Hoe lang duurt het voordat ik mijn artikel terugkrijg?</h2>
           <p>
-            De meeste werkstukken zijn binnen 7 tot 14 dagen retour, afhankelijk van het formaat en de complexiteit.
+            De meeste werken zijn binnen 7 tot 14 dagen retour, afhankelijk van het formaat en de complexiteit.
           </p>
         </div>
 
@@ -37,14 +37,14 @@ export default function FAQPage() {
         <div className="bg-gray-50 p-4 rounded shadow">
           <h2 className="text-xl font-semibold mb-2">Hoe werkt het verzenden?</h2>
           <p>
-            Na het invullen van je gegevens ontvang je een verzendlabel en instructies om je werkstuk op te sturen. De verzendkosten zijn inclusief retour en te volgen via track en trace.
+            Na het invullen van je gegevens ontvang je een verzendlabel en instructies om je werkstuk op te sturen met DHL of PostNL. De verzendkosten zijn inclusief retour en te volgen via track en trace.
           </p>
         </div>
 
         <div className="bg-gray-50 p-4 rounded shadow">
           <h2 className="text-xl font-semibold mb-2">Wat als ik niet tevreden ben?</h2>
           <p>
-            We streven naar 100% tevredenheid. Mocht je niet tevreden zijn, neem dan direct contact met ons op zodat we samen een oplossing kunnen vinden. Als we het werkstuk niet kunnen stralen dan sturen we het terug zonder straalkosten in rekening te brengen, u betaald dan alleen de verzendkosten.
+            We streven naar 100% tevredenheid. Mocht je niet tevreden zijn, neem dan direct contact met ons op zodat we samen een oplossing kunnen vinden. Als we het niet kunnen stralen dan sturen we het terug zonder straalkosten in rekening te brengen, u betaald dan alleen de verzendkosten.
           </p>
         </div>
       </div>

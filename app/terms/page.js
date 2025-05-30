@@ -7,7 +7,7 @@ export default function TermsPage() {
 
       <div className="max-w-2xl text-center">
         <p className="mb-4">
-          Op deze pagina vind je de algemene voorwaarden van Send-Straal-Klaar.nl.
+          Op deze pagina vind je de algemene voorwaarden van Snel-Zandstralen.nl.
           Deze zijn van toepassing op al onze diensten en leveringen.
         </p>
 
