@@ -265,7 +265,7 @@ export default function OrderPage() {
         {/* --- EINDE FOTO UPLOAD SECTIE --- */}
 
         <label className="block text-lg font-medium text-gray-700">
-          Beschrijving werkstuk:
+          Beschrijving object:
           <textarea name="description" value={formData.description} onChange={handleChange} className="mt-1 border p-2 rounded w-full" rows="3" />
         </label>
         <label className="block text-lg font-medium text-gray-700">

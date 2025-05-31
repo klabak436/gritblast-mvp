@@ -9,7 +9,7 @@ export default function FAQPage() {
         <div className="bg-gray-50 p-4 rounded shadow">
           <h2 className="text-xl font-semibold mb-2">Wat is zandstralen?</h2>
           <p>
-            Zandstralen is een techniek waarbij een werkstuk wordt schoongemaakt of opgeruwd met behulp van een straalmiddel, zoals zand of korund, onder hoge druk.
+            Zandstralen is een techniek waarbij een een onderdeel van bijvoorbeeld metaal of hout wordt schoongemaakt of opgeruwd met behulp van een straalmiddel, zoals zand of korund, onder hoge druk.
           </p>
         </div>
 

@@ -27,9 +27,9 @@ export default function HomePage() {
 
         {/* USP's */}
         <ul className="text-left mb-8 space-y-2 text-lg">
-          <li>✅ Zandstralen en coaten</li>
+          <li>✅ Zandstralen en coaten voor een scherpe prijs</li>
           <li>✅ Kleine bestellingen mogelijk</li>
-          <li>✅ Direct een prijs en verzendlabel</li>
+          <li>✅ Direct een prijsindicatie inclusief verzendkosten</li>
           <li>✅ Binnen Nederland in 7 dagen retour</li>
         </ul>
 
@@ -38,7 +38,7 @@ export default function HomePage() {
           <h2 className="text-2xl font-bold mb-2">Hoe werkt het?</h2>
           <ol className="list-decimal list-inside space-y-2">
             <li>
-              <strong>Klik op &quot;Bestelling plaatsen&quot;</strong> en upload een foto van wat je wilt laten zandstralen. Geef de kenmerken, afmetingen, gewicht en een korte omschrijving op. Je ontvangt direct een indicatie van de prijs voor het stralen en evenuteel coaten.
+              <strong>Klik op &quot;Bestelling plaatsen&quot;</strong> - upload een foto van wat je wilt laten zandstralen. Geef de kenmerken, afmetingen, gewicht en een korte omschrijving op. Je ontvangt direct een indicatie van de prijs voor het stralen en evenuteel coaten.
             </li>
             <li>
               <strong>Plaats je bestelling</strong> - wij bekijken je aanvraag. Als je order wordt geaccepteerd, ontvang je een betaal link en een verzendlabel via e-mail.
@@ -47,7 +47,7 @@ export default function HomePage() {
               <strong>Stuur het op</strong> - zodra wij het ontvangen, gaan we aan de slag met stralen en indien gewenst coaten.
             </li>
             <li>
-              <strong>Ontvang je werk retour</strong> - binnen 7 dagen heb je het weer in huis, gezandstraald en wel!
+              <strong>Ontvang het retour</strong> - binnen 7 dagen gezandstraald afgeleverd!
             </li>
           </ol>
           <p className="mt-4 text-sm text-gray-600">
