@@ -16,7 +16,7 @@ export default function TermsPage() {
         </p>
 
         <a
-          href="/algemene-voorwaarden.pdf" // Pas deze link aan zodra je de PDF hebt!
+          href="https://lm0cofmgaioqoav7.public.blob.vercel-storage.com/Algemene%20voorwaarden%20Snel-Zandstralen.nl%20-%20v1-ojZS4NzGwQ7NWjgKYqOJTp88u4rN97.pdf" // Pas deze link aan zodra je de PDF hebt!
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
