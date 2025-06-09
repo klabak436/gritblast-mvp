@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { sendToAirtable } from "../../utils";
 
 export default function OrderPage() {
@@ -35,6 +36,31 @@ export default function OrderPage() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [step, setStep] = useState("form");
   const [orderCode, setOrderCode] = useState("");
+  const [quoteLoaded, setQuoteLoaded] = useState(false);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get("fromQuote")) {
+      const stored = localStorage.getItem("quoteData");
+      if (stored) {
+        try {
+          const data = JSON.parse(stored);
+          if (data.formData) {
+            setFormData((prev) => ({ ...prev, ...data.formData }));
+          }
+          if (data.photoUrl) setPhotoUrl(data.photoUrl);
+          if (data.blastPrice) setBlastPrice(data.blastPrice);
+          if (data.coatPrice) setCoatPrice(data.coatPrice);
+          if (data.shippingCost) setShippingCost(data.shippingCost);
+          if (data.totalPrice) setTotalPrice(data.totalPrice);
+          setStep("quote");
+          setQuoteLoaded(true);
+        } catch (err) {
+          console.error("Fout bij laden quoteData", err);
+        }
+      }
+    }
+  }, [searchParams]);
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -168,6 +194,9 @@ export default function OrderPage() {
       console.log("Verstuur order naar Airtable:", record);
       await sendToAirtable(record);
       setStep("confirmation");
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("quoteData");
+      }
     } catch (error) {
       console.error("Fout bij verzenden naar Airtable:", error);
       alert("Er ging iets mis met het versturen van je order. Probeer later opnieuw.");
@@ -178,7 +207,7 @@ export default function OrderPage() {
     <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-100">
       <h1 className="text-4xl font-bold mb-4 text-gray-800">Bestelling plaatsen</h1>
 
-      <form onSubmit={handleUploadAndCalculate} className="flex flex-col gap-4 w-full max-w-md bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+      <form onSubmit={quoteLoaded ? (e) => {e.preventDefault(); handleConfirm();} : handleUploadAndCalculate} className="flex flex-col gap-4 w-full max-w-md bg-white p-6 rounded-lg shadow-lg border border-gray-200">
         <label className="block text-lg font-medium text-gray-700">
           Naam:
           <input name="name" value={formData.name} onChange={handleChange} className="mt-1 border p-2 rounded w-full" required />
@@ -212,6 +241,8 @@ export default function OrderPage() {
           <input name="kvk" value={formData.kvk} onChange={handleChange} className="mt-1 border p-2 rounded w-full" />
         </label>
 
+        {!quoteLoaded && (
+        <>
         {/* --- FOTO UPLOAD SECTIE MET FEEDBACK --- */}
         <div className="flex flex-col gap-2">
           <label className="block text-lg font-medium text-gray-700">
@@ -263,7 +294,7 @@ export default function OrderPage() {
           )}
         </div>
         {/* --- EINDE FOTO UPLOAD SECTIE --- */}
-
+        
         <label className="block text-lg font-medium text-gray-700">
           Beschrijving object:
           <textarea name="description" value={formData.description} onChange={handleChange} className="mt-1 border p-2 rounded w-full" rows="3" />
@@ -308,6 +339,8 @@ export default function OrderPage() {
         <button type="submit" className="bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 font-semibold transition duration-300">
           Bereken prijs
         </button>
+        </>
+        )}
       </form>
 
       {step === "quote" && (
