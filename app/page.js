@@ -12,6 +12,12 @@ export default function HomePage() {
             Bestelling plaatsen
           </a>
           <a
+            href="/quote"
+            className="border-2 border-yellow-500 text-yellow-600 px-4 py-2 rounded hover:bg-yellow-100 text-sm sm:text-base"
+          >
+            Bereken prijs
+          </a>
+          <a
             href="/track"
             className="border-2 border-blue-500 text-blue-500 px-4 py-2 rounded hover:bg-blue-100 text-sm sm:text-base"
           >
